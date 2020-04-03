@@ -5,7 +5,7 @@ import { Card } from "../cards/Card";
 import { CardEditor } from "../cards/CardEditor";
 import shortid from "shortid";
 import { ColumnEditor } from "./ColumnEditor";
-import { ActionType } from '../../redux';
+import { Actions } from '../../redux';
 
 class ColumnImp extends Component {
   state = {
@@ -23,10 +23,7 @@ class ColumnImp extends Component {
     const { columnId, dispatch } = this.props;
     const cardId = shortid.generate();
 
-    dispatch({
-      type: ActionType.ADD_CARD,
-      payload: { cardText, cardId, columnId }
-    });
+    dispatch(Actions.AddCard({ cardText, cardId, columnId }));
   };
 
   toggleEditingTitle = () => this.setState({ editingTitle: !this.state.editingTitle });
@@ -40,19 +37,13 @@ class ColumnImp extends Component {
     const { columnId, dispatch } = this.props;
     this.toggleEditingTitle();
 
-    dispatch({
-      type: ActionType.UPDATE_COLUMN,
-      payload: { columnId, columnTitle: title }
-    });
+    dispatch(Actions.UpdateColumn({ columnId, columnTitle: title }));
   };
 
   deleteColumn = async () => {
     const { columnId, column, dispatch } = this.props;
 
-    dispatch({
-      type: ActionType.DELETE_COLUMN,
-      payload: { columnId, cards: column.cards }
-    });
+    dispatch(Actions.DeleteColumn({ columnId, cards: column.cards }));
   };
 
   render() {

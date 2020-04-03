@@ -2,7 +2,7 @@ import "../../index.css";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { CardEditor } from "./CardEditor";
-import { ActionType } from '../../redux';
+import { Actions } from '../../redux';
 
 class CardImp extends Component {
 
@@ -29,19 +29,13 @@ class CardImp extends Component {
 
     const { card, dispatch } = this.props;
 
-    dispatch({
-      type: ActionType.UPDATE_CARD,
-      payload: { cardId: card.cardId, cardText: text }
-    });
+    dispatch(Actions.UpdateCard({ cardId: card.cardId, cardText: text }));
   };
 
   deleteCard = async () => {
     const { columnId, card, dispatch } = this.props;
 
-    dispatch({
-      type: ActionType.DELETE_CARD,
-      payload: { cardId: card.cardId, columnId }
-    });
+    dispatch(Actions.DeleteCard({ cardId: card.cardId, columnId }));
   };
 
   render() {

@@ -1,12 +1,12 @@
-import { ActionType } from './actionType';
+import { ActionTypes } from './actions';
 
 export const boardReducer = (state = { columns: [] }, action) => {
     switch (action.type) {
-        case ActionType.ADD_COLUMN: {
+        case ActionTypes.ADD_COLUMN: {
             const { columnId } = action.payload;
             return { columns: [...state.columns, columnId] };
         }
-        case ActionType.DELETE_COLUMN: {
+        case ActionTypes.DELETE_COLUMN: {
             const { columnId } = action.payload;
             const filterDeleted = tmpColumnId => tmpColumnId !== columnId;
             const newColumns = state.columns.filter(filterDeleted);

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { ColumnEditor } from "./ColumnEditor";
 import shortid from "shortid";
 import { EditButtons } from "../cards/EditButtons";
-import { ActionType } from '../../redux';
+import { Actions } from '../../redux';
 
 class AddColumnImp extends Component {
   state = {
@@ -21,10 +21,7 @@ class AddColumnImp extends Component {
 
     this.props.toggleAddingColumn();
 
-    dispatch({
-      type: ActionType.ADD_COLUMN,
-      payload: { columnId: shortid.generate(), columnTitle: title }
-    });
+    dispatch(Actions.AddColumn({ columnId: shortid.generate(), columnTitle: title }));
   };
 
   render() {
