@@ -25,7 +25,7 @@ class BoardImp extends Component {
           {addingColumn
             ? <AddColumn toggleAddingColumn={this.toggleAddingColumn} />
             : <div onClick={this.toggleAddingColumn} className="Add-Column-Button">
-              <ion-icon name="add" /> Add a Column
+              <ion-icon name="add" /> Add a column
             </div>
           }
         </div>

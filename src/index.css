@@ -41,13 +41,13 @@ code {
 
 /* Board */
 .Board {
-  height: 92%;
   display: flex;
-  overflow-x: auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .Add-Column {
-  width: 272px;
   margin: 10px;
   flex-shrink: 0;
 }
@@ -64,6 +64,7 @@ code {
   transition: background-color 85ms ease-in, opacity 40ms ease-in,
     border-color 85ms ease-in;
   height: fit-content;
+  font-weight: bold;
 }
 
 .Add-Column-Button:hover {
@@ -147,7 +148,6 @@ code {
 .Column {
   background: #abd6dd31;
   flex-shrink: 0;
-  width: 272px;
   height: fit-content;
   margin: 10px;
   margin-right: 0;
@@ -160,15 +160,33 @@ code {
   padding: 10px;
   overflow-wrap: break-word;
   font-weight: bold;
+  background-color: #3880ff;
+  border-radius: 10px;
+  color: #ffce00;
+  transition: background-color 85ms ease-in, opacity 40ms ease-in,
+    border-color 85ms ease-in;
 }
 
 .Toggle-Add-Card {
-  cursor: pointer;
+  /* cursor: pointer;
   padding: 10px;
-  color: #6b808c;
+  color: #eaf0f1;
   border-radius: 0 0 10px 10px;
   display: flex;
+  align-items: center; */
+  padding: 10px;
+  background-color: #efd259;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
   align-items: center;
+  min-height: 32px;
+  padding: 5px 8px;
+  transition: background-color 85ms ease-in, opacity 40ms ease-in,
+    border-color 85ms ease-in;
+  height: fit-content;
+  font-weight: bold;
 }
 
 .Toggle-Add-Card:hover {
@@ -249,6 +267,32 @@ code {
 
 .Edit-Button-Cancel:hover {
   opacity: 1;
+}
+
+/* respective cards */
+@media only screen and (max-width: 600px) {
+  .Column{ width: 50% }
+  .Add-Column { width: 50% }
+}
+
+@media only screen and (min-width: 768px) {
+  .Column{ width: 33% }
+  .Add-Column { width: 33% }
+}
+
+@media only screen and (min-width: 992px) {
+  .Column{ width: 25% }
+  .Add-Column { width: 25% }
+} 
+
+@media only screen and (min-width: 1200px) {
+  .Column{ width: 20% }
+  .Add-Column { width: 20% }
+}
+
+@media only screen and (min-width: 1600px) {
+  .Column{ width: 16% }
+  .Add-Column { width: 16% }
 }
 
 
