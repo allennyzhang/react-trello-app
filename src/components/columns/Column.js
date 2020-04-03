@@ -9,57 +9,56 @@ import { Actions } from '../../redux';
 
 class ColumnImp extends Component {
   state = {
-    editingTitle: false,
+    isAddingCard: false,
+    isEditingTitle: false,
     title: this.props.column.title,
-    addingCard: false
   };
 
-  toggleAddingCard = () => this.setState({ addingCard: !this.state.addingCard });
-
-  addCard = async cardText => {
+  handleAddCard = async cardText => {
     this.toggleAddingCard();
+
     if (!cardText.trim()) return;
 
     const { columnId, dispatch } = this.props;
     const cardId = shortid.generate();
-
     dispatch(Actions.AddCard({ cardText, cardId, columnId }));
   };
 
-  toggleEditingTitle = () => this.setState({ editingTitle: !this.state.editingTitle });
+  toggleAddingCard = () => this.setState({ isAddingCard: !this.state.isAddingCard });
 
   handleChangeTitle = e => this.setState({ title: e.target.value });
 
-  editColumnTitle = async () => {
+  handleEditTitle = async () => {
+    this.toggleEditingTitle();
+
     const { title } = this.state;
     if (!title.trim()) return;
 
     const { columnId, dispatch } = this.props;
-    this.toggleEditingTitle();
-
     dispatch(Actions.UpdateColumn({ columnId, columnTitle: title }));
   };
 
-  deleteColumn = async () => {
-    const { columnId, column, dispatch } = this.props;
+  toggleEditingTitle = () => this.setState({ isEditingTitle: !this.state.isEditingTitle });
 
+  handleDeleteColumn = async () => {
+    const { columnId, column, dispatch } = this.props;
     dispatch(Actions.DeleteColumn({ columnId, cards: column.cards }));
   };
 
   render() {
     const { column } = this.props;
-    const { editingTitle, addingCard, title } = this.state;
+    const { isEditingTitle, isAddingCard, title } = this.state;
 
     return (
       <div className="Column">
-        {editingTitle
+        {isEditingTitle
           ? <ColumnEditor
             column={column}
             title={title}
             handleChangeTitle={this.handleChangeTitle}
-            saveColumn={this.editColumnTitle}
-            onClickOutside={this.editColumnTitle}
-            deleteColumn={this.deleteColumn}
+            saveColumn={this.handleEditTitle}
+            onClickOutside={this.handleEditTitle}
+            deleteColumn={this.handleDeleteColumn}
           />
           : <div className="Column-Title" onClick={this.toggleEditingTitle}>
             {column.title}
@@ -76,9 +75,9 @@ class ColumnImp extends Component {
             />
           )}
 
-        {addingCard
+        {isAddingCard
           ? <CardEditor
-            onSave={this.addCard}
+            onSave={this.handleAddCard}
             onCancel={this.toggleAddingCard}
             adding
           />

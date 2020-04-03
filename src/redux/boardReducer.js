@@ -3,14 +3,11 @@ import { ActionTypes } from './actions';
 export const boardReducer = (state = { columns: [] }, action) => {
     switch (action.type) {
         case ActionTypes.ADD_COLUMN: {
-            const { columnId } = action.payload;
-            return { columns: [...state.columns, columnId] };
+            return { columns: [...state.columns, action.payload.columnId] };
         }
         case ActionTypes.DELETE_COLUMN: {
-            const { columnId } = action.payload;
-            const filterDeleted = tmpColumnId => tmpColumnId !== columnId;
-            const newColumns = state.columns.filter(filterDeleted);
-            return { columns: newColumns };
+            const columns = state.columns.filter(x => x !== action.payload.columnId);
+            return { columns };
         }
         default:
             return state;
