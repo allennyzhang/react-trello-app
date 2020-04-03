@@ -8,32 +8,32 @@ import { Actions } from '../../redux';
 
 class AddColumnImp extends Component {
   state = {
-    title: ""
+    columnTitle: ""
   };
 
-  handleChangeTitle = e => this.setState({ title: e.target.value });
+  handleChangeTitle = e => this.setState({ columnTitle: e.target.value });
 
   createColumn = async () => {
-    const { title } = this.state;
+    const { columnTitle } = this.state;
     const { columnState } = this.props;
 
-    const isTitleExist = Object.values(columnState).filter(x => x.title.toLowerCase().trim() === title.toLowerCase().trim());
-    if (!title.trim() || isTitleExist.length) return;
+    const isTitleExist = Object.values(columnState).filter(x => x.columnTitle.toLowerCase().trim() === columnTitle.toLowerCase().trim());
+    if (!columnTitle.trim() || isTitleExist.length) return;
 
     const { dispatch } = this.props;
     this.props.toggleAddingColumn();
 
-    dispatch(Actions.AddColumn({ columnId: shortid.generate(), columnTitle: title }));
+    dispatch(Actions.AddColumn({ columnId: shortid.generate(), columnTitle }));
   };
 
   render() {
     const { toggleAddingColumn } = this.props;
-    const { title } = this.state;
+    const { columnTitle } = this.state;
 
     return (
       <div className="Add-Column-Editor">
         <ColumnEditor
-          title={title}
+          columnTitle={columnTitle}
           handleChangeTitle={this.handleChangeTitle}
           onClickOutside={toggleAddingColumn}
           saveColumn={this.createColumn}

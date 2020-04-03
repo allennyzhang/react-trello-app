@@ -6,14 +6,14 @@ export const columnReducer = (state = {}, action) => {
             const { columnId, columnTitle } = action.payload;
             return {
                 ...state,
-                [columnId]: { columnId: columnId, title: columnTitle, cards: [] }
+                [columnId]: { columnId, columnTitle, columnCards: [] }
             };
         }
         case ActionTypes.UPDATE_COLUMN: {
             const { columnId, columnTitle } = action.payload;
             return {
                 ...state,
-                [columnId]: { ...state[columnId], title: columnTitle }
+                [columnId]: { ...state[columnId], columnTitle }
             };
         }
         case ActionTypes.DELETE_COLUMN: {
@@ -25,7 +25,7 @@ export const columnReducer = (state = {}, action) => {
             const { columnId, cardId } = action.payload;
             return {
                 ...state,
-                [columnId]: { ...state[columnId], cards: [...state[columnId].cards, cardId] }
+                [columnId]: { ...state[columnId], columnCards: [...state[columnId].columnCards, cardId] }
             };
         }
         case ActionTypes.DELETE_CARD: {
@@ -33,7 +33,7 @@ export const columnReducer = (state = {}, action) => {
             const filterDeleted = cardId => cardId !== deletedCardId;
             return {
                 ...state,
-                [columnId]: { ...state[columnId], cards: state[columnId].cards.filter(filterDeleted) }
+                [columnId]: { ...state[columnId], columnCards: state[columnId].columnCards.filter(filterDeleted) }
             };
         }
         default:
