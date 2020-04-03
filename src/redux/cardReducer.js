@@ -4,11 +4,11 @@ export const cardReducer = (state = {}, action) => {
     switch (action.type) {
         case ActionTypes.ADD_CARD: {
             const { cardText, cardId } = action.payload;
-            return { ...state, [cardId]: { text: cardText, cardId: cardId } };
+            return { ...state, [cardId]: { cardId, cardText } };
         }
         case ActionTypes.UPDATE_CARD: {
             const { cardText, cardId } = action.payload;
-            return { ...state, [cardId]: { ...state[cardId], text: cardText } };
+            return { ...state, [cardId]: { ...state[cardId], cardText } };
         }
         case ActionTypes.DELETE_CARD: {
             const { cardId } = action.payload;
@@ -17,7 +17,7 @@ export const cardReducer = (state = {}, action) => {
         }
         // Find every card from the deleted column and remove it
         case ActionTypes.DELETE_COLUMN: {
-            const { cards: cardIds } = action.payload;
+            const { columnCards: cardIds } = action.payload;
             return Object.keys(state)
                 .filter(cardId => !cardIds.includes(cardId))
                 .reduce((newState, cardId) => ({ ...newState, [cardId]: state[cardId] }), {});

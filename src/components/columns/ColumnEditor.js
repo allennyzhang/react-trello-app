@@ -30,7 +30,7 @@ class ColumnEditor extends Component {
   }
 
   render() {
-    const { title, handleChangeTitle, deleteColumn } = this.props;
+    const { columnTitle, handleChangeTitle, deleteColumn } = this.props;
 
     return (
       <div className="Column-Title-Edit" ref={this.ref}>
@@ -38,7 +38,7 @@ class ColumnEditor extends Component {
           autoFocus
           className="Column-Title-Textarea"
           placeholder="Enter column title..."
-          value={title}
+          value={columnTitle}
           onChange={handleChangeTitle}
           onKeyDown={this.onEnter}
           style={{ width: deleteColumn ? 220 : 245 }}

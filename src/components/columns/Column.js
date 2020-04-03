@@ -11,13 +11,13 @@ class ColumnImp extends Component {
   state = {
     isAddingCard: false,
     isEditingTitle: false,
-    title: this.props.column.title,
+    columnTitle: this.props.column.columnTitle,
   };
 
   handleAddCard = async cardText => {
     this.toggleAddingCard();
     const { cardState } = this.props;
-    const isCardExist = Object.values(cardState).filter(x => x.text.toLowerCase().trim() === cardText.toLowerCase().trim());
+    const isCardExist = Object.values(cardState).filter(x => x.cardText.toLowerCase().trim() === cardText.toLowerCase().trim());
     if (!cardText.trim() || isCardExist.length) return;
 
     const { columnId, dispatch } = this.props;
@@ -27,49 +27,49 @@ class ColumnImp extends Component {
 
   toggleAddingCard = () => this.setState({ isAddingCard: !this.state.isAddingCard });
 
-  handleChangeTitle = e => this.setState({ title: e.target.value });
+  handleChangeTitle = e => this.setState({ columnTitle: e.target.value });
 
   handleEditTitle = async () => {
     this.toggleEditingTitle();
 
-    const { title } = this.state;
+    const { columnTitle } = this.state;
     const { columnState } = this.props;
-    const isTitleExist = Object.values(columnState).filter(x => x.title.toLowerCase().trim() === title.toLowerCase().trim());
-    if (!title.trim() || isTitleExist.length) return;
+    const isTitleExist = Object.values(columnState).filter(x => x.columnTitle.toLowerCase().trim() === columnTitle.toLowerCase().trim());
+    if (!columnTitle.trim() || isTitleExist.length) return;
 
     const { columnId, dispatch } = this.props;
-    dispatch(Actions.UpdateColumn({ columnId, columnTitle: title }));
+    dispatch(Actions.UpdateColumn({ columnId, columnTitle }));
   };
 
   toggleEditingTitle = () => this.setState({ isEditingTitle: !this.state.isEditingTitle });
 
   handleDeleteColumn = async () => {
     const { columnId, column, dispatch } = this.props;
-    dispatch(Actions.DeleteColumn({ columnId, cards: column.cards }));
+    dispatch(Actions.DeleteColumn({ columnId, columnCards: column.columnCards }));
   };
 
   render() {
     const { column } = this.props;
-    const { isEditingTitle, isAddingCard, title } = this.state;
+    const { isEditingTitle, isAddingCard, columnTitle } = this.state;
 
     return (
       <div className="Column">
         {isEditingTitle
           ? <ColumnEditor
             column={column}
-            title={title}
+            columnTitle={columnTitle}
             handleChangeTitle={this.handleChangeTitle}
             saveColumn={this.handleEditTitle}
             onClickOutside={this.handleEditTitle}
             deleteColumn={this.handleDeleteColumn}
           />
           : <div className="Column-Title" onClick={this.toggleEditingTitle}>
-            {column.title}
+            {column.columnTitle}
           </div>
         }
 
-        {column.cards &&
-          column.cards.map((cardId, index) =>
+        {column.columnCards &&
+          column.columnCards.map((cardId, index) =>
             <Card
               key={cardId}
               cardId={cardId}

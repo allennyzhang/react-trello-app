@@ -18,20 +18,20 @@ class CardImp extends Component {
     this.setState({
       hover: false,
       editing: true,
-      text: this.props.card.text
+      cardText: this.props.card.cardText
     });
 
   endEditing = () => this.setState({ hover: false, editing: false });
 
-  editCard = async text => {
+  editCard = async cardText => {
     this.endEditing();
     const { cardState } = this.props;
-    const isCardExist = Object.values(cardState).filter(x => x.text.toLowerCase().trim() === text.toLowerCase().trim());
-    if (!text.trim() || isCardExist.length) return;
+    const isCardExist = Object.values(cardState).filter(x => x.cardText.toLowerCase().trim() === cardText.toLowerCase().trim());
+    if (!cardText.trim() || isCardExist.length) return;
 
     const { card, dispatch } = this.props;
 
-    dispatch(Actions.UpdateCard({ cardId: card.cardId, cardText: text }));
+    dispatch(Actions.UpdateCard({ cardId: card.cardId, cardText }));
   };
 
   deleteCard = async () => {
@@ -47,7 +47,7 @@ class CardImp extends Component {
     if (editing) {
       return (
         <CardEditor
-          text={card.text}
+          cardText={card.cardText}
           onSave={this.editCard}
           onDelete={this.deleteCard}
           onCancel={this.endEditing}
@@ -68,7 +68,7 @@ class CardImp extends Component {
               </div>
             </div>
           )}
-          {card.text}
+          {card.cardText}
         </div>
       );
     }
