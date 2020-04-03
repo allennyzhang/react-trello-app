@@ -15,10 +15,12 @@ class AddColumnImp extends Component {
 
   createColumn = async () => {
     const { title } = this.state;
-    if (!title.trim()) return;
+    const { columnState } = this.props;
+
+    const isTitleExist = Object.values(columnState).filter(x => x.title.toLowerCase().trim() === title.toLowerCase().trim());
+    if (!title.trim() || isTitleExist.length) return;
 
     const { dispatch } = this.props;
-
     this.props.toggleAddingColumn();
 
     dispatch(Actions.AddColumn({ columnId: shortid.generate(), columnTitle: title }));
@@ -47,4 +49,6 @@ class AddColumnImp extends Component {
   }
 }
 
-export const AddColumn = connect()(AddColumnImp);
+const mapStateToProps = state => ({ columnState: state.columnState });
+
+export const AddColumn = connect(mapStateToProps)(AddColumnImp);

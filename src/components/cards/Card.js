@@ -25,7 +25,9 @@ class CardImp extends Component {
 
   editCard = async text => {
     this.endEditing();
-    if (!text.trim()) return;
+    const { cardState } = this.props;
+    const isCardExist = Object.values(cardState).filter(x => x.text.toLowerCase().trim() === text.toLowerCase().trim());
+    if (!text.trim() || isCardExist.length) return;
 
     const { card, dispatch } = this.props;
 
@@ -74,7 +76,8 @@ class CardImp extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  card: state.cardState[ownProps.cardId]
+  card: state.cardState[ownProps.cardId],
+  cardState: state.cardState
 });
 
 export const Card = connect(mapStateToProps)(CardImp);

@@ -16,8 +16,9 @@ class ColumnImp extends Component {
 
   handleAddCard = async cardText => {
     this.toggleAddingCard();
-
-    if (!cardText.trim()) return;
+    const { cardState } = this.props;
+    const isCardExist = Object.values(cardState).filter(x => x.text.toLowerCase().trim() === cardText.toLowerCase().trim());
+    if (!cardText.trim() || isCardExist.length) return;
 
     const { columnId, dispatch } = this.props;
     const cardId = shortid.generate();
@@ -32,7 +33,9 @@ class ColumnImp extends Component {
     this.toggleEditingTitle();
 
     const { title } = this.state;
-    if (!title.trim()) return;
+    const { columnState } = this.props;
+    const isTitleExist = Object.values(columnState).filter(x => x.title.toLowerCase().trim() === title.toLowerCase().trim());
+    if (!title.trim() || isTitleExist.length) return;
 
     const { columnId, dispatch } = this.props;
     dispatch(Actions.UpdateColumn({ columnId, columnTitle: title }));
@@ -91,6 +94,8 @@ class ColumnImp extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  cardState: state.cardState,
+  columnState: state.columnState,
   column: state.columnState[ownProps.columnId]
 });
 
