@@ -5,9 +5,7 @@ import { Column } from "../columns/Column";
 import { AddColumn } from "../columns/AddColumn";
 
 class BoardImp extends Component {
-  state = {
-    addingColumn: false
-  };
+  state = { addingColumn: false };
 
   toggleAddingColumn = () => this.setState({ addingColumn: !this.state.addingColumn });
 
