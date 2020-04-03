@@ -15,6 +15,8 @@ class AddColumnImp extends Component {
 
   createColumn = async () => {
     const { title } = this.state;
+    if (!title.trim()) return;
+
     const { dispatch } = this.props;
 
     this.props.toggleAddingColumn();

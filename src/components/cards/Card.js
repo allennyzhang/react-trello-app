@@ -24,8 +24,10 @@ class CardImp extends Component {
   endEditing = () => this.setState({ hover: false, editing: false });
 
   editCard = async text => {
-    const { card, dispatch } = this.props;
     this.endEditing();
+    if (!text.trim()) return;
+
+    const { card, dispatch } = this.props;
 
     dispatch({
       type: ActionType.UPDATE_CARD,

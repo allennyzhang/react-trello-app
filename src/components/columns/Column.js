@@ -17,9 +17,10 @@ class ColumnImp extends Component {
   toggleAddingCard = () => this.setState({ addingCard: !this.state.addingCard });
 
   addCard = async cardText => {
-    const { columnId, dispatch } = this.props;
     this.toggleAddingCard();
+    if (!cardText.trim()) return;
 
+    const { columnId, dispatch } = this.props;
     const cardId = shortid.generate();
 
     dispatch({
@@ -33,8 +34,10 @@ class ColumnImp extends Component {
   handleChangeTitle = e => this.setState({ title: e.target.value });
 
   editColumnTitle = async () => {
-    const { columnId, dispatch } = this.props;
     const { title } = this.state;
+    if (!title.trim()) return;
+
+    const { columnId, dispatch } = this.props;
     this.toggleEditingTitle();
 
     dispatch({
